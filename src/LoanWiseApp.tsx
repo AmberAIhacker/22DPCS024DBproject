@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 const RepaymentCharts = lazy(() => import("./RepaymentCharts"));
@@ -13,6 +13,11 @@ type Installment = {
   interest: number;
   principal: number;
   closingBalance: number;
+};
+
+type InstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 };
 
 const currency = new Intl.NumberFormat("en-IN", {
@@ -91,6 +96,22 @@ function LoanWiseApp() {
       return "dark";
     }
   });
+  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as InstallPromptEvent);
+    };
+    const handleInstalled = () => setInstallPrompt(null);
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+    window.addEventListener("appinstalled", handleInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+      window.removeEventListener("appinstalled", handleInstalled);
+    };
+  }, []);
 
   const safeLoan = Math.max(0, loanAmount);
   const safeRate = Math.max(0, interestRate);
@@ -152,6 +173,13 @@ function LoanWiseApp() {
     } catch {
       // Theme remains available for this session if storage is disabled.
     }
+  };
+
+  const installApp = async () => {
+    if (!installPrompt) return;
+    await installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
   };
 
   const generatePDF = async () => {
@@ -275,6 +303,7 @@ function LoanWiseApp() {
           <a href="#calculator">Calculator</a><a href="#insights">Insights</a><a href="#learn">Learn</a><a href="#faq">FAQ</a>
         </nav>
         <div className="header-actions">
+          {installPrompt && <button className="install-btn" onClick={() => void installApp()}><span aria-hidden="true">↓</span> Install</button>}
           <button className="theme-toggle" onClick={() => setThemeMode(theme === "dark" ? "light" : "dark")} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} title="Toggle color theme"><span aria-hidden="true">{theme === "dark" ? "☼" : "◐"}</span><span>{theme === "dark" ? "Light" : "Dark"}</span></button>
           <button className="pdf-btn" onClick={generatePDF}><span aria-hidden="true">↓</span> Export report</button>
         </div>

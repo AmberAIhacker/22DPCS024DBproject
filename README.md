@@ -29,6 +29,10 @@ npm run build
 npm run preview
 ```
 
+## Install on a phone
+
+Open the deployed site once over HTTPS. On Android, use Chrome's Install app prompt or browser menu. On iPhone, open the site in Safari, tap Share, then Add to Home Screen. After the first online load, the service worker caches the app shell for offline opening; live data and report downloads still require a network connection.
+
 ## Publish with GitHub and Vercel
 
 1. Create a GitHub repository and push this project to it.

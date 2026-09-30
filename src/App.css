@@ -116,7 +116,8 @@
 
 .theme-toggle,
 .pdf-btn,
-.text-action {
+.text-action,
+.install-btn {
   display: inline-flex;
   min-height: 40px;
   align-items: center;
@@ -134,7 +135,8 @@
 }
 
 .theme-toggle:hover,
-.text-action:hover {
+.text-action:hover,
+.install-btn:hover {
   transform: translateY(-1px);
   border-color: var(--mint);
 }
@@ -142,6 +144,11 @@
 .theme-toggle > span:first-child {
   color: var(--mint);
   font-size: 17px;
+}
+
+.install-btn {
+  border-color: color-mix(in srgb, var(--mint) 45%, var(--line));
+  color: var(--mint);
 }
 
 .pdf-btn {
@@ -1162,7 +1169,7 @@ td:first-child small {
   .main-nav { order: 3; width: 100%; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
   .main-nav a { font-size: 10px; }
   .header-actions { gap: 6px; }
-  .theme-toggle, .pdf-btn { min-height: 36px; padding-inline: 9px; font-size: 10px; }
+  .theme-toggle, .pdf-btn, .install-btn { min-height: 36px; padding-inline: 9px; font-size: 10px; }
   .container { width: calc(100% - 32px); }
   .hero { min-height: auto; grid-template-columns: 1fr; gap: 24px; margin-top: 18px; padding: 28px 22px 35px; }
   .hero h1 { font-size: clamp(38px, 10vw, 48px); }
