@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:root {
+  --background: #090d0b;
+  --panel: #101612;
+  --paper: #f1f5ef;
+  --muted: #89958c;
+  --line: #263029;
+  --mint: #b2ff77;
+  --display: "Space Grotesk", "Segoe UI", sans-serif;
+  --mono: "DM Mono", Consolas, monospace;
+
+  color: var(--paper);
+  background: var(--background);
+  color-scheme: dark;
+  font-family: var(--display);
+  font-size: 16px;
+  font-synthesis: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.45;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--background);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(rgba(178, 255, 119, 0.065) 0.7px, transparent 0.7px),
+    linear-gradient(180deg, rgba(16, 22, 18, 0.3), transparent 420px);
+  background-size: 20px 20px, 100% 100%;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+::selection {
+  background: var(--mint);
+  color: #11170e;
+}
